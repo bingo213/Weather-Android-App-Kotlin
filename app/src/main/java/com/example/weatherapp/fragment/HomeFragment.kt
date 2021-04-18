@@ -16,6 +16,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.adapter.CardAdapter
 import com.example.weatherapp.databinding.FragmentHomeBinding
 import com.example.weatherapp.viewmodel.HomeViewModel
+import com.squareup.picasso.Picasso
 import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -57,10 +58,20 @@ class HomeFragment : Fragment() {
                 .format(Calendar.getInstance().time).toString()
             binding.address.text = weather.name
 
-            binding.humidity.text = weather.main?.humidity?.let { Math.round(it).toString() } + "%"
+            binding.humidity.text = weather.main?.humidity?.roundToInt()?.toString() + "%"
+            binding.progressHumidity.progress = weather.main?.humidity?.roundToInt()!!
+
             binding.realFeel.text = weather.main?.feels_like?.let { convertKelvinToCelsius(it) }
-            binding.wind.text = weather.wind?.speed?.times(3.6)?.let { it.roundToInt().toString() } + " km/h"
-            binding.cloudness.text = weather.clouds?.all?.let { it.roundToInt().toString() } + "%"
+            binding.progressRealFeel.progress = weather.main?.feels_like?.minus(273.15)?.roundToInt()!!
+
+            binding.wind.text = weather.wind?.speed?.times(3.6)?.roundToInt()?.toString() + " km/h"
+            binding.progressWind.progress = weather.wind?.speed?.times(3.6)?.roundToInt()!!
+
+            binding.cloudness.text = weather.clouds?.all?.roundToInt()?.toString() + "%"
+            binding.progressCloudness.progress = weather.clouds?.all?.roundToInt()!!
+
+            val iconUrl = "http://openweathermap.org/img/w/" + weather.weather[0].icon + ".png"
+            Picasso.with(activity).load(iconUrl).into(binding.icon)
         })
 
         return binding.root

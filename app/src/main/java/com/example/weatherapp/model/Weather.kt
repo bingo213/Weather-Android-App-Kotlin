@@ -24,4 +24,5 @@ class Main {
 
 class WeatherMain {
     var main: String? = null
+    var icon: String? = null
 }

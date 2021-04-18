@@ -6,7 +6,9 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 private val BASE_URL = "http://api.openweathermap.org"
@@ -31,4 +33,15 @@ object WeatherApi{
         retrofit.create(WeatherService::class.java)
     }
 }
+
+//interface IconService{
+//    @GET("img/wn/{iconId}.png")
+//    suspend fun getWeatherItem(@Path("iconId") icon: String) :
+//}
+//
+//object WeatherIconApi{
+//    val iconService : IconService by lazy {
+//        retrofit.create(IconService::class.java)
+//    }
+//}
 

@@ -62,4 +62,6 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
 
     implementation "com.google.android.gms:play-services-location:17.1.0"
+
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }

@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/background_description"
             android:scaleType="centerInside"
-            android:src="@drawable/bg"
+            android:src="@drawable/illutration"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -53,6 +53,15 @@
             app:layout_constraintVertical_bias="0.3"
             tools:text="Sunny" />
 
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            tools:src="@drawable/ic_rainy"
+            app:layout_constraintStart_toEndOf="@+id/description"
+            app:layout_constraintTop_toTopOf="@+id/description" />
+
         <TextView
             android:id="@+id/dateTime"
             style="@style/textSubTitle"
@@ -83,6 +92,8 @@
             android:id="@+id/info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -150,9 +161,9 @@
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:max="100"
-                        android:min="1"
-                        android:progress="40"
+                        android:max="50"
+                        android:min="0"
+                        android:progress="21"
                         android:progressTint="@color/progressColor"
                         android:rotation="-90" />
 
