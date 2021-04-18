@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="tempInfo">
+        <item name="android:textColor">@color/blueLight</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">45sp</item>
+    </style>
+
+    <style name="weather">
+        <item name="android:textColor">@color/blueDark</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="textSubTitle">
+        <item name="android:textColor">@color/textSubTitle</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="textInfo">
+        <item name="android:textColor">@color/textDark</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="breakInfo">
+        <item name="android:paddingBottom">48dp</item>
+    </style>
+
+    <style name="cardBottomFirst">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingTop">32dp</item>
+        <item name="android:paddingBottom">32dp</item>
+    </style>
+
+    <style name="cardBottom">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingTop">40dp</item>
+        <item name="android:paddingBottom">40dp</item>
+    </style>
+
+    <style name="cardTextDay">
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/textSubTitle</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="cardTextDayFirst">
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/textDayFirst</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="cardTempInfo">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@color/textDark</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="cardTempInfoFirst">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+</resources>

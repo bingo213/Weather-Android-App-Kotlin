@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_with_box_shadow"
+    android:paddingLeft="24dp"
+    android:paddingTop="8dp"
+    android:paddingRight="24dp"
+    android:paddingBottom="14dp"
+    android:layout_marginBottom="24dp">
+
+    <ImageView
+        android:id="@+id/weatherIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_cloudy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dayInfo"
+        style="@style/textSubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Fri, 19 March 2021"
+        app:layout_constraintBottom_toBottomOf="@+id/weatherIcon"
+        app:layout_constraintStart_toEndOf="@+id/weatherIcon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dayTempo"
+        style="@style/weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="26"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/weatherIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
