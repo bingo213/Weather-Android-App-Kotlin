@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/card_with_box_shadow"
+    android:layout_marginBottom="24dp"
     android:paddingLeft="24dp"
     android:paddingTop="8dp"
     android:paddingRight="24dp"
-    android:paddingBottom="14dp"
-    android:layout_marginBottom="24dp">
+    android:paddingBottom="14dp">
 
     <ImageView
         android:id="@+id/weatherIcon"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_cloudy"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tempMin"
+        app:layout_constraintStart_toEndOf="@+id/dayInfo"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -24,14 +24,13 @@
         style="@style/textSubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:text="Fri, 19 March 2021"
         app:layout_constraintBottom_toBottomOf="@+id/weatherIcon"
-        app:layout_constraintStart_toEndOf="@+id/weatherIcon"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/dayTempo"
+        android:id="@+id/tempMax"
         style="@style/weather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,5 +38,17 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/weatherIcon"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tempMin"
+        style="@style/weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="20"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tempMax"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

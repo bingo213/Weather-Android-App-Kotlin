@@ -13,7 +13,7 @@ class DetailAdapter(private val listCard: ArrayList<CardDetail>) : RecyclerView.
     class DetailHolder(view: View) : RecyclerView.ViewHolder(view) {
         val weatherIcon: ImageView = view.findViewById(R.id.weatherIcon)
         val dayInfo: TextView = view.findViewById(R.id.dayInfo)
-        val dayTempo: TextView = view.findViewById(R.id.dayTempo)
+        val dayTempo: TextView = view.findViewById(R.id.tempMax)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailHolder {
@@ -28,7 +28,7 @@ class DetailAdapter(private val listCard: ArrayList<CardDetail>) : RecyclerView.
     override fun onBindViewHolder(holder: DetailHolder, position: Int) {
         val currentCard = listCard[position]
 
-        holder.weatherIcon.setImageResource(currentCard.weatherIcon)
+//        holder.weatherIcon.setImageResource(currentCard.weatherIcon)
         holder.dayInfo.text = currentCard.dayInfo
         holder.dayTempo.text = currentCard.dayTempo.toString()
     }

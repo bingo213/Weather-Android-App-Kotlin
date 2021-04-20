@@ -2,6 +2,7 @@ package com.example.weatherapp.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.DayWeather
-import com.example.weatherapp.R
+import com.example.weatherapp.*
 import com.example.weatherapp.adapter.CardAdapter
 import com.example.weatherapp.databinding.FragmentHomeBinding
-import com.example.weatherapp.viewmodel.HomeViewModel
+import com.example.weatherapp.viewmodel.CurrentWeatherViewModel
+import com.example.weatherapp.viewmodel.WeatherForecastViewModel
 import com.squareup.picasso.Picasso
 import java.text.DateFormat
 import java.util.*
@@ -25,7 +26,7 @@ import kotlin.math.roundToInt
 class HomeFragment : Fragment() {
     private lateinit var dayAdapter: CardAdapter
     private lateinit var dayRecyclerView: RecyclerView
-    private var listDayWeather: ArrayList<DayWeather> = ArrayList()
+    private var listDayWeather : ArrayList<DayWeather> = ArrayList()
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -34,26 +35,21 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.i("HomeFragment", "createView")
         binding = FragmentHomeBinding.inflate(inflater)
-
-        dayAdapter = CardAdapter(listDayWeather)
-        dayRecyclerView = binding.bottom
-        dayRecyclerView.apply {
-            setHasFixedSize(true)
-            adapter = dayAdapter
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        }
 
         binding.seeMore.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
         }
 
-        val viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        val currentWeatherViewModel =
+            ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
 
-        viewModel.weather.observe(viewLifecycleOwner, Observer { weather ->
+        currentWeatherViewModel.weather.observe(viewLifecycleOwner, Observer { weather ->
             binding.tempo.text = weather.main?.temp?.let { convertKelvinToCelsius(it) }
-//                (weather.main?.temp?.minus(273.15))?.let { Math.round(it).toString() } + "°C"
-            binding.description.text = weather.weather[0].main
+
+            binding.mainWeather.text = weather.weather[0].main
+            binding.description.text = weather.weather[0].description
             binding.dateTime.text = DateFormat.getDateInstance(DateFormat.FULL, Locale.US)
                 .format(Calendar.getInstance().time).toString()
             binding.address.text = weather.name
@@ -62,30 +58,56 @@ class HomeFragment : Fragment() {
             binding.progressHumidity.progress = weather.main?.humidity?.roundToInt()!!
 
             binding.realFeel.text = weather.main?.feels_like?.let { convertKelvinToCelsius(it) }
-            binding.progressRealFeel.progress = weather.main?.feels_like?.minus(273.15)?.roundToInt()!!
+            binding.progressRealFeel.progress =
+                weather.main?.feels_like?.minus(KELVIN_TO_CELSIUS)?.roundToInt()!!
 
-            binding.wind.text = weather.wind?.speed?.times(3.6)?.roundToInt()?.toString() + " km/h"
-            binding.progressWind.progress = weather.wind?.speed?.times(3.6)?.roundToInt()!!
+            binding.wind.text =
+                weather.wind?.speed?.times(METER_PER_SECOND_TO_KILOMETER_PER_HOUR)?.roundToInt()
+                    ?.toString() + " km/h"
+            binding.progressWind.progress = weather.wind?.speed?.times(
+                METER_PER_SECOND_TO_KILOMETER_PER_HOUR
+            )?.roundToInt()!!
 
             binding.cloudness.text = weather.clouds?.all?.roundToInt()?.toString() + "%"
             binding.progressCloudness.progress = weather.clouds?.all?.roundToInt()!!
 
-            val iconUrl = "http://openweathermap.org/img/w/" + weather.weather[0].icon + ".png"
-            Picasso.with(activity).load(iconUrl).into(binding.icon)
+            val iconUrl = BASE_URL + "/img/w/" + weather.weather[0].icon + ".png"
+            Picasso.with(activity).load(iconUrl).resize(100, 100).into(binding.icon)
         })
+
+        dayRecyclerView = binding.bottom
+
+        val weatherForecastViewModel =
+            ViewModelProvider(this).get(WeatherForecastViewModel::class.java)
+        weatherForecastViewModel.listDayWeather.observe(viewLifecycleOwner, Observer {
+            dayAdapter = CardAdapter(it)
+            dayRecyclerView.adapter = dayAdapter
+            Log.i("HomeFragment", weatherForecastViewModel.listDayWeather.value?.size.toString())
+
+            Log.i("HomeFragment", "observe")
+        })
+
+        dayRecyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        }
 
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        for (i: Int in 1..7) {
-            listDayWeather.add(DayWeather("Thus", 24))
-        }
+    private fun convertKelvinToCelsius(temp: Float): String {
+        return (temp.minus(KELVIN_TO_CELSIUS)).roundToInt().toString() + "°C"
     }
 
-    private fun convertKelvinToCelsius(temp: Float): String {
-        return (temp.minus(273.15)).roundToInt().toString() + "°C"
+    override fun onStop() {
+        super.onStop()
+        Log.i("HomeFragment", "Stop")
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i("HomeFragment", "Destroy")
+    }
+
 
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".fragment.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,14 +15,14 @@
             android:layout_width="405dp"
             android:layout_height="wrap_content"
             android:contentDescription="@string/background_description"
-            android:scaleType="centerInside"
+            android:scaleType="center"
             android:src="@drawable/illutration"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/info"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.197" />
+            app:layout_constraintVertical_bias="0.32" />
 
         <TextView
             android:id="@+id/tempo"
@@ -33,14 +33,12 @@
             android:fontFamily="monospace"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.07999998"
             tools:text="30" />
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/mainWeather"
             style="@style/weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,16 +48,27 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintVertical_bias="0.2"
             tools:text="Sunny" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/textSubTitle"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainWeather"
+            tools:text="Clear sky" />
 
         <ImageView
             android:id="@+id/icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/description"
-            app:layout_constraintTop_toTopOf="@+id/description" />
+            app:layout_constraintStart_toEndOf="@+id/mainWeather"
+            app:layout_constraintTop_toTopOf="@+id/mainWeather" />
 
         <TextView
             android:id="@+id/dateTime"
@@ -72,6 +81,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/address"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="Thus, 18 Mar 2021" />
 
         <TextView
@@ -80,7 +90,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,6 +100,7 @@
             android:id="@+id/info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="top"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:orientation="horizontal"
@@ -127,6 +137,7 @@
                         android:min="0"
                         android:progress="40"
                         android:progressTint="@color/progressColor"
+                        android:progressBackgroundTint="@color/textSubTitle"
                         android:rotation="-90" />
 
                     <LinearLayout
@@ -164,6 +175,7 @@
                         android:min="0"
                         android:progress="21"
                         android:progressTint="@color/progressColor"
+                        android:progressBackgroundTint="@color/textSubTitle"
                         android:rotation="-90" />
 
                     <LinearLayout
@@ -214,6 +226,7 @@
                         android:min="-10"
                         android:progress="40"
                         android:progressTint="@color/progressColor"
+                        android:progressBackgroundTint="@color/textSubTitle"
                         android:rotation="-90" />
 
                     <LinearLayout
@@ -251,6 +264,7 @@
                         android:min="1"
                         android:progress="40"
                         android:progressTint="@color/progressColor"
+                        android:progressBackgroundTint="@color/textSubTitle"
                         android:rotation="-90" />
 
                     <LinearLayout
@@ -277,15 +291,28 @@
         </LinearLayout>
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:paddingBottom="12dp"
+            android:text="Today"
+            android:textColor="@color/blueDark"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/seeMore"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/seeMore" />
+
+        <TextView
             android:id="@+id/seeMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
+            android:paddingBottom="12dp"
             android:text="See More"
-            app:layout_constraintBottom_toTopOf="@+id/bottom"
+            android:textColor="@color/textSubTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/info"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/info" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bottom"
@@ -295,12 +322,10 @@
             android:paddingLeft="24dp"
             android:paddingTop="24dp"
             android:paddingBottom="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seeMore"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toBottomOf="@+id/seeMore">
 
         </androidx.recyclerview.widget.RecyclerView>
 

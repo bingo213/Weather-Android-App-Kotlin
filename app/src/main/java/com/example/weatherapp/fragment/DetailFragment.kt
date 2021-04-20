@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.findFragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.CardDetail
 import com.example.weatherapp.R
+import com.example.weatherapp.R.id.homeFragment
 import com.example.weatherapp.adapter.DetailAdapter
 import com.example.weatherapp.databinding.FragmentDetailBinding
 
@@ -35,7 +38,8 @@ class DetailFragment : Fragment() {
         }
 
         binding.backBtn.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
+//            view.findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
+            view.findNavController().navigateUp()
         }
 
         return binding.root
@@ -45,7 +49,8 @@ class DetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         for (i : Int in 1..10){
-            lisrCardDetail.add(CardDetail(R.drawable.ic_cloudy, "Fri, 19 March 2021", 26))
+            lisrCardDetail.add(CardDetail("Fri, 19 March 2021", 26))
         }
     }
+
 }

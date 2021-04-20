@@ -1,6 +1,8 @@
 package com.example.weatherapp.api
 
+import com.example.weatherapp.BASE_URL
 import com.example.weatherapp.model.Weather
+import com.example.weatherapp.model.WeatherForecast
 import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.Response
@@ -11,8 +13,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-private val BASE_URL = "http://api.openweathermap.org"
-
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())
     .baseUrl(BASE_URL)
@@ -21,10 +21,11 @@ private val retrofit = Retrofit.Builder()
 interface WeatherService {
     @GET("data/2.5/weather?")
     suspend fun getCurrentWeatherData(
-//        @Query("lat") lat: String,
-//        @Query("lon") lon: String,
-        @Query("q") city: String,
-        @Query("appid") app_id: String
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
+        @Query("appid") appid: String
+//        @Query("q") city: String,
+//        @Query("appid") app_id: String
     ) : Weather
 }
 
@@ -34,14 +35,16 @@ object WeatherApi{
     }
 }
 
-//interface IconService{
-//    @GET("img/wn/{iconId}.png")
-//    suspend fun getWeatherItem(@Path("iconId") icon: String) :
-//}
-//
-//object WeatherIconApi{
-//    val iconService : IconService by lazy {
-//        retrofit.create(IconService::class.java)
-//    }
-//}
+interface WeatherForecastService{
+    @GET("data/2.5/forecast?")
+    suspend fun getWeatherForecast(@Query("lat") lat: Double,
+                                   @Query("lon") lon: Double,
+                                   @Query("appid") appid: String) : WeatherForecast
+}
+
+object WeatherForecastApi{
+    val weatherForecastService : WeatherForecastService by lazy {
+        retrofit.create(WeatherForecastService::class.java)
+    }
+}
 

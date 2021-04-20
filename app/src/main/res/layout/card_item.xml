@@ -21,6 +21,15 @@
             style="@style/cardTempInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="30" />
+
+        <ImageView
+            android:id="@+id/iconInCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+                />
 
 </LinearLayout>
