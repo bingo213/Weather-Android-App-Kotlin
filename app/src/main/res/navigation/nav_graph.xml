@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/virtualFragment">
 
     <fragment
         android:id="@+id/detailFragment"
@@ -23,5 +23,15 @@
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/virtualFragment"
+        android:name="com.example.weatherapp.fragment.VirtualFragment"
+        android:label="fragment_virtual"
+        tools:layout="@layout/fragment_virtual" >
+        <action
+            android:id="@+id/action_virtualFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

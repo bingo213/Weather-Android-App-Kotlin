@@ -1,6 +1,7 @@
 package com.example.weatherapp.fragment
 
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 class HomeFragment : Fragment() {
+    private lateinit var currentWeatherViewModel: CurrentWeatherViewModel
     private lateinit var dayAdapter: CardAdapter
     private lateinit var dayRecyclerView: RecyclerView
     private var listDayWeather : ArrayList<DayWeather> = ArrayList()
@@ -39,10 +41,11 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
 
         binding.seeMore.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
+            val detailFragment = DetailFragment()
+            (activity as MainActivity).loadFragment(detailFragment)
         }
 
-        val currentWeatherViewModel =
+        currentWeatherViewModel =
             ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
 
         currentWeatherViewModel.weather.observe(viewLifecycleOwner, Observer { weather ->
@@ -108,6 +111,5 @@ class HomeFragment : Fragment() {
         super.onDestroy()
         Log.i("HomeFragment", "Destroy")
     }
-
 
 }

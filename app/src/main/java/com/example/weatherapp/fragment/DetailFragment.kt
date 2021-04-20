@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.findFragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.CardDetail
+import com.example.weatherapp.MainActivity
 import com.example.weatherapp.R
 import com.example.weatherapp.R.id.homeFragment
 import com.example.weatherapp.adapter.DetailAdapter
@@ -39,7 +41,8 @@ class DetailFragment : Fragment() {
 
         binding.backBtn.setOnClickListener { view : View ->
 //            view.findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
-            view.findNavController().navigateUp()
+//            view.findNavController().navigateUp()
+            (activity as MainActivity).removeFragment(this)
         }
 
         return binding.root

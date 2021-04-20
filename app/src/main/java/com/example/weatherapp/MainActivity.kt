@@ -6,40 +6,58 @@ import com.example.weatherapp.databinding.FragmentHomeBinding
 import java.util.*
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import com.example.weatherapp.fragment.HomeFragment
+import com.example.weatherapp.fragment.VirtualFragment
+import com.example.weatherapp.model.Main
 import com.google.android.gms.location.*
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val homeFragment = HomeFragment()
+
+    var permissions = 0
 
     //    Declaring the needed Variables
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
-    val PERMISSION_ID = 21
+    private val PERMISSION_ID = 21
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        virtualFragment.hideNextBtn()
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         RequestPermission()
         getLastLocation()
+
         Log.i("MainActivity", "it catch here")
         Log.d("Debug:", "permission " + checkPermission().toString())
         Log.d("Debug:", "location is enable " + isLocationEnabled().toString())
@@ -61,16 +79,8 @@ class MainActivity : AppCompatActivity() {
                         )
                         LATITUDE = location.latitude
                         LONGITUDE = location.longitude
-                        Log.d("Debug", "city: ${CITY}")
-
-                        val fg = supportFragmentManager.findFragmentById(R.id.homeFragment)
-                        val ft = supportFragmentManager.beginTransaction()
-                        fg?.let {
-                            ft.detach(it)
-                            ft.attach(it)
-                            ft.commit()
-                        }
-
+//                        virtualFragment.displayNextBtn()
+//                        loadFragment(homeFragment)
                     }
                 }
 
@@ -92,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         locationRequest.numUpdates = 1
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         checkPermission()
-        fusedLocationProviderClient!!.requestLocationUpdates(
+        fusedLocationProviderClient.requestLocationUpdates(
             locationRequest, locationCallback, Looper.myLooper()
         )
     }
@@ -107,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkPermission(): Boolean {
+    fun checkPermission(): Boolean {
         //this function will return a boolean
         //true: if we have permission
         //false if not
@@ -127,17 +137,26 @@ class MainActivity : AppCompatActivity() {
         return false
 
     }
+    public fun loadFragment(fragment: Fragment){
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.nav_host_fragment, fragment)
+            .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
+            .addToBackStack(null)
+            .commit()
+    }
 
     fun RequestPermission() {
         //this function will allows us to tell the user to requesut the necessary permsiion if they are not garented
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(
-                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ),
-            PERMISSION_ID
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(
+                arrayOf(
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ),
+                PERMISSION_ID
+            )
+        }
     }
 
     fun isLocationEnabled(): Boolean {
@@ -161,18 +180,19 @@ class MainActivity : AppCompatActivity() {
                 getLastLocation()
             }
         }
+        else
+            setPermission()
     }
 
-    private fun getCityName(lat: Double, long: Double): String {
-        var cityName: String = ""
-        var countryName = ""
-        var geoCoder = Geocoder(this, Locale.getDefault())
-        var Adress = geoCoder.getFromLocation(lat, long, 3)
-
-        cityName = Adress.get(0).locality
-        countryName = Adress.get(0).countryName
-        Log.d("Debug:", "Your City: " + cityName + " ; your Country " + countryName)
-        return cityName
+    private fun setPermission(){
+        permissions = 1
     }
 
+    fun removeFragment(fragment: Fragment){
+        val manager : FragmentManager = this.supportFragmentManager
+        val fragTransaction : FragmentTransaction = manager.beginTransaction()
+        fragTransaction.remove(fragment)
+        fragTransaction.commit()
+        manager.popBackStack()
+    }
 }
