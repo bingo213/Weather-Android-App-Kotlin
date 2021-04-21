@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/cardItem"
-        style="@style/cardBottomFirst"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/card_item_bg"
-        android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardItem"
+    style="@style/cardBottomFirst"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="16dp"
+    android:background="@drawable/card_item_bg"
+    android:orientation="vertical">
 
         <TextView
             android:id="@+id/day"
             style="@style/cardTextDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thus" />
+            android:paddingBottom="4dp"
+            android:textSize="12sp"
+            tools:text="21/04" />
+
+        <TextView
+            android:id="@+id/hour"
+            style="@style/cardTextDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            tools:text="0h" />
 
         <TextView
             android:id="@+id/tempo"

@@ -1,7 +1,6 @@
 package com.example.weatherapp.fragment
 
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,14 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.*
 import com.example.weatherapp.adapter.CardAdapter
 import com.example.weatherapp.databinding.FragmentHomeBinding
-import com.example.weatherapp.viewmodel.CurrentWeatherViewModel
-import com.example.weatherapp.viewmodel.WeatherForecastViewModel
+import com.example.weatherapp.viewmodel.HomeViewModel
+import com.example.weatherapp.viewmodel.DetailViewModel
 import com.squareup.picasso.Picasso
 import java.text.DateFormat
 import java.util.*
@@ -25,7 +23,6 @@ import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 class HomeFragment : Fragment() {
-    private lateinit var currentWeatherViewModel: CurrentWeatherViewModel
     private lateinit var dayAdapter: CardAdapter
     private lateinit var dayRecyclerView: RecyclerView
     private var listDayWeather : ArrayList<DayWeather> = ArrayList()
@@ -45,10 +42,9 @@ class HomeFragment : Fragment() {
             (activity as MainActivity).loadFragment(detailFragment)
         }
 
-        currentWeatherViewModel =
-            ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
+        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        currentWeatherViewModel.weather.observe(viewLifecycleOwner, Observer { weather ->
+        homeViewModel.weather.observe(viewLifecycleOwner, Observer { weather ->
             binding.tempo.text = weather.main?.temp?.let { convertKelvinToCelsius(it) }
 
             binding.mainWeather.text = weather.weather[0].main
@@ -75,19 +71,13 @@ class HomeFragment : Fragment() {
             binding.progressCloudness.progress = weather.clouds?.all?.roundToInt()!!
 
             val iconUrl = BASE_URL + "/img/w/" + weather.weather[0].icon + ".png"
-            Picasso.with(activity).load(iconUrl).resize(100, 100).into(binding.icon)
+            Picasso.with(activity).load(iconUrl).resize(200, 200).into(binding.icon)
         })
 
         dayRecyclerView = binding.bottom
-
-        val weatherForecastViewModel =
-            ViewModelProvider(this).get(WeatherForecastViewModel::class.java)
-        weatherForecastViewModel.listDayWeather.observe(viewLifecycleOwner, Observer {
+        homeViewModel.listDayWeather.observe(viewLifecycleOwner, Observer {
             dayAdapter = CardAdapter(it)
             dayRecyclerView.adapter = dayAdapter
-            Log.i("HomeFragment", weatherForecastViewModel.listDayWeather.value?.size.toString())
-
-            Log.i("HomeFragment", "observe")
         })
 
         dayRecyclerView.apply {
@@ -102,14 +92,14 @@ class HomeFragment : Fragment() {
         return (temp.minus(KELVIN_TO_CELSIUS)).roundToInt().toString() + "°C"
     }
 
-    override fun onStop() {
-        super.onStop()
-        Log.i("HomeFragment", "Stop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i("HomeFragment", "Destroy")
-    }
+//    override fun onStop() {
+//        super.onStop()
+//        Log.i("HomeFragment", "Stop")
+//    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        Log.i("HomeFragment", "Destroy")
+//    }
 
 }

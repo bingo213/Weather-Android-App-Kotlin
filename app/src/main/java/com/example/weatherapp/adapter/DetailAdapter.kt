@@ -8,12 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.CardDetail
 import com.example.weatherapp.R
+import com.squareup.picasso.Picasso
 
 class DetailAdapter(private val listCard: ArrayList<CardDetail>) : RecyclerView.Adapter<DetailAdapter.DetailHolder>(){
     class DetailHolder(view: View) : RecyclerView.ViewHolder(view) {
         val weatherIcon: ImageView = view.findViewById(R.id.weatherIcon)
         val dayInfo: TextView = view.findViewById(R.id.dayInfo)
-        val dayTempo: TextView = view.findViewById(R.id.tempMax)
+        val tempMax: TextView = view.findViewById(R.id.tempMax)
+        val tempMin: TextView = view.findViewById(R.id.tempMin)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailHolder {
@@ -29,7 +31,9 @@ class DetailAdapter(private val listCard: ArrayList<CardDetail>) : RecyclerView.
         val currentCard = listCard[position]
 
 //        holder.weatherIcon.setImageResource(currentCard.weatherIcon)
-        holder.dayInfo.text = currentCard.dayInfo
-        holder.dayTempo.text = currentCard.dayTempo.toString()
+        holder.dayInfo.text = currentCard.dateTime
+        holder.tempMax.text = currentCard.tempMax.toString()
+        holder.tempMin.text = currentCard.tempMin.toString()
+        Picasso.with(holder.dayInfo.context).load(currentCard.icon).resize(100, 100).into(holder.weatherIcon)
     }
 }

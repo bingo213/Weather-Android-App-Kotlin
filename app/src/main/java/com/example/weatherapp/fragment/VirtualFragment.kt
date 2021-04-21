@@ -44,13 +44,4 @@ class VirtualFragment : Fragment() {
 
         return binding.root
     }
-
-//    fun hideNextBtn(){
-//        binding.next.visibility = View.GONE
-//    }
-//
-//    fun displayNextBtn(){
-//        binding.next.visibility = View.VISIBLE
-//    }
-
 }

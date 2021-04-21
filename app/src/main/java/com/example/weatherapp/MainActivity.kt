@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                         LATITUDE = location.latitude
                         LONGITUDE = location.longitude
 //                        virtualFragment.displayNextBtn()
-//                        loadFragment(homeFragment)
+                        loadFragment(homeFragment)
                     }
                 }
 

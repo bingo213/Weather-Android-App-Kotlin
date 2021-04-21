@@ -15,8 +15,7 @@ class CardAdapter(private val listDay: ArrayList<DayWeather>) :
     RecyclerView.Adapter<CardAdapter.CardHolder>() {
     class CardHolder(view: View) : RecyclerView.ViewHolder(view) {
         val day: TextView = view.findViewById(R.id.day)
-
-        //        val ordinary: TextView = view.findViewById(R.id.ordinary)
+        val hour: TextView = view.findViewById(R.id.hour)
         val tempo: TextView = view.findViewById(R.id.tempo)
         val icon: ImageView = view.findViewById(R.id.iconInCard)
     }
@@ -38,6 +37,7 @@ class CardAdapter(private val listDay: ArrayList<DayWeather>) :
         val currentItem = listDay[position]
 
         holder.day.text = currentItem.day
+        holder.hour.text = currentItem.hour
         holder.tempo.text = currentItem.tempo.toString() + "°C"
         Picasso.with(holder.day.context).load(currentItem.icon).resize(100, 100).into(holder.icon)
     }

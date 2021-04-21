@@ -8,4 +8,3 @@ val HOUR_FORECAST = intArrayOf(0, 3, 6, 9, 12, 15, 18, 21)
 
 var LATITUDE  = 0.0
 var LONGITUDE = 0.0
-var CITY = ""

@@ -1,6 +1,7 @@
 package com.example.weatherapp.api
 
 import com.example.weatherapp.BASE_URL
+import com.example.weatherapp.model.DailyForecast
 import com.example.weatherapp.model.Weather
 import com.example.weatherapp.model.WeatherForecast
 import kotlinx.coroutines.Deferred
@@ -45,6 +46,19 @@ interface WeatherForecastService{
 object WeatherForecastApi{
     val weatherForecastService : WeatherForecastService by lazy {
         retrofit.create(WeatherForecastService::class.java)
+    }
+}
+
+interface DailyForecastService {
+    @GET("data/2.5/onecall?")
+    suspend fun getDailyForecast(@Query("lat") lat: Double,
+                                   @Query("lon") lon: Double,
+                                   @Query("appid") appid: String) : DailyForecast
+}
+
+object DailyForecastApi{
+    val dailyForecastService : DailyForecastService by lazy {
+        retrofit.create(DailyForecastService::class.java)
     }
 }
 

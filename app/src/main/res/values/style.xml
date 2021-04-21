@@ -37,8 +37,8 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingTop">32dp</item>
-        <item name="android:paddingBottom">32dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
     </style>
 
     <style name="cardBottom">
@@ -50,24 +50,24 @@
     </style>
 
     <style name="cardTextDay">
-        <item name="android:textSize">15dp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/textSubTitle</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="cardTextDayFirst">
-        <item name="android:textSize">15dp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/textDayFirst</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="cardTempInfo">
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/textDark</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
     <style name="cardTempInfoFirst">
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
